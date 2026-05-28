@@ -1,60 +1,67 @@
 import PropTypes from 'prop-types';
-import Snake from './Snake';
-import Food from './Food';
-import { BOARD_SIZE } from '../utils/gameUtils';
-import './Board.css';
+import './StartScreen.css';
 
 /**
- * Board — the game's visual grid.
- * Renders the background grid, Snake segments, and Food.
+ * StartScreen — shown on the initial screen and after game over.
  *
  * Props:
- *   snake:    Array<{x,y}>   — snake segments (head first)
- *   food:     {x, y}         — current food position
- *   cellSize: number         — px per cell
- *   gameOver: boolean        — whether the game has ended
+ *   isGameOver:  boolean  — true if showing "game over" state
+ *   score:       number   — final score (only relevant on game over)
+ *   bestScore:   number   — all-time best score
+ *   onStart:     function — called when the player clicks Start / Play Again
  */
-function Board({ snake, food, cellSize, gameOver }) {
-  const boardPx = BOARD_SIZE * cellSize;
-
+function StartScreen({ isGameOver, score, bestScore, onStart }) {
   return (
-    <div
-      className={`board ${gameOver ? 'board--game-over' : ''}`}
-      style={{ width: boardPx, height: boardPx }}
-      role="img"
-      aria-label="Snake game board"
-    >
-      {/* Grid lines overlay */}
-      <div
-        className="board__grid"
-        style={{
-          backgroundSize: `${cellSize}px ${cellSize}px`,
-        }}
-      />
+    <div className="start-screen">
+      <div className="start-screen__content">
+        {isGameOver ? (
+          <>
+            <h2 className="start-screen__title start-screen__title--over">GAME OVER</h2>
+            <div className="start-screen__scores">
+              <div className="start-screen__score-row">
+                <span className="start-screen__score-label">Score</span>
+                <span className="start-screen__score-val">{score}</span>
+              </div>
+              {score >= bestScore && score > 0 && (
+                <div className="start-screen__new-best">🏆 New best!</div>
+              )}
+              <div className="start-screen__score-row">
+                <span className="start-screen__score-label">Best</span>
+                <span className="start-screen__score-val start-screen__score-val--best">
+                  {bestScore}
+                </span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="start-screen__logo">🐍</div>
+            <h1 className="start-screen__title">SNAKE</h1>
+            <p className="start-screen__subtitle">Classic arcade — reinvented</p>
+          </>
+        )}
 
-      {/* Game entities */}
-      <Snake segments={snake} cellSize={cellSize} />
-      <Food  position={food}  cellSize={cellSize} />
+        <button className="start-screen__btn" onClick={onStart}>
+          {isGameOver ? 'Play Again' : 'Start Game'}
+        </button>
 
-      {/* Game-over flash overlay */}
-      {gameOver && <div className="board__overlay" aria-hidden="true" />}
+        <div className="start-screen__controls">
+          <span>Arrow keys or WASD to move</span>
+        </div>
+
+        <div className="start-screen__levels">
+          <span>Speed increases at 5 · 12 · 22 points</span>
+        </div>
+      </div>
     </div>
   );
 }
 
-Board.propTypes = {
-  snake: PropTypes.arrayOf(
-    PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  food: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }).isRequired,
-  cellSize: PropTypes.number.isRequired,
-  gameOver: PropTypes.bool.isRequired,
+StartScreen.propTypes = {
+  isGameOver: PropTypes.bool.isRequired,
+  score:      PropTypes.number.isRequired,
+  bestScore:  PropTypes.number.isRequired,
+  onStart:    PropTypes.func.isRequired,
 };
 
-export default Board;
+export default StartScreen;
