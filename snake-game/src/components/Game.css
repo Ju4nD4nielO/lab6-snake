@@ -1,0 +1,30 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  min-height: 100dvh;
+  box-sizing: border-box;
+}
+
+.game__header {
+  width: 100%;
+  max-width: 560px;
+}
+
+.game__main {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.game__board-wrapper {
+  position: relative;
+}
+
+.game__footer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}

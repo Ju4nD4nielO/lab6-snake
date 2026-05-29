@@ -1,0 +1,46 @@
+.board {
+  position: relative;
+  overflow: hidden;
+  background: #0d1117;
+  border: 1px solid rgba(38, 222, 129, 0.2);
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px rgba(38, 222, 129, 0.05),
+    inset 0 0 40px rgba(0, 0, 0, 0.6),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.board__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Game-over tint */
+.board--game-over {
+  animation: boardFlash 0.4s ease-out;
+}
+
+.board__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(231, 76, 60, 0.12);
+  z-index: 10;
+  pointer-events: none;
+  animation: overlayFade 0.5s ease-out forwards;
+}
+
+@keyframes boardFlash {
+  0%   { border-color: rgba(231, 76, 60, 0.8); box-shadow: 0 0 30px rgba(231,76,60,0.5); }
+  100% { border-color: rgba(38, 222, 129, 0.2); }
+}
+
+@keyframes overlayFade {
+  0%   { opacity: 1; }
+  100% { opacity: 0.5; }
+}

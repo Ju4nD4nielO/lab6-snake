@@ -1,1 +1,6 @@
-.dockerignore
+node_modules
+dist
+.DS_Store
+*.local
+*.log
+*.lock

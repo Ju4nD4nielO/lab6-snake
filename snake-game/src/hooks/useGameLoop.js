@@ -1,52 +1,24 @@
-import { useEffect, useCallback } from 'react';
-import { OPPOSITE } from '../utils/gameUtils';
-
-const KEY_MAP = {
-  ArrowUp: 'UP',
-  ArrowDown: 'DOWN',
-  ArrowLeft: 'LEFT',
-  ArrowRight: 'RIGHT',
-  w: 'UP',
-  s: 'DOWN',
-  a: 'LEFT',
-  d: 'RIGHT',
-  W: 'UP',
-  S: 'DOWN',
-  A: 'LEFT',
-  D: 'RIGHT',
-};
+import { useEffect, useRef } from 'react';
 
 /**
- * useKeyboardInput — listens to keyboard events and calls onDirectionChange
- * when a valid, non-opposite direction key is pressed.
+ * useGameLoop — runs a callback at a fixed interval (ms).
+ * Clears and restarts whenever `interval` or `callback` changes.
  *
- * @param {string} currentDirection - The snake's current direction
- * @param {function} onDirectionChange - Callback to update direction
- * @param {boolean} active - Whether the hook is active (game running)
+ * @param {function} callback - The tick function to run each interval
+ * @param {number|null} interval - Milliseconds between ticks; null pauses the loop
  */
-export function useKeyboardInput(currentDirection, onDirectionChange, active) {
-  const handleKeyDown = useCallback(
-    (e) => {
-      if (!active) return;
+export function useGameLoop(callback, interval) {
+  const savedCallback = useRef(callback);
 
-      const newDir = KEY_MAP[e.key];
-      if (!newDir) return;
-
-      // Prevent scrolling the page with arrow keys
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-        e.preventDefault();
-      }
-
-      // Don't allow reversing direction (can't go directly opposite)
-      if (OPPOSITE[newDir] === currentDirection) return;
-
-      onDirectionChange(newDir);
-    },
-    [currentDirection, onDirectionChange, active]
-  );
+  // Always keep the ref pointing to the latest callback
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+    if (interval === null) return;
+
+    const id = setInterval(() => savedCallback.current(), interval);
+    return () => clearInterval(id);
+  }, [interval]);
 }

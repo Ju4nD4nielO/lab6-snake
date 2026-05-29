@@ -1,0 +1,60 @@
+.score-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.score-panel__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.score-panel__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.score-panel__value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: 'Share Tech Mono', monospace;
+  line-height: 1;
+}
+
+.score-panel__value--current { color: #26de81; }
+.score-panel__value--best    { color: #ffd32a; }
+
+/* Level pips */
+.score-panel__item--level { gap: 6px; }
+
+.score-panel__pips {
+  display: flex;
+  gap: 5px;
+}
+
+.score-panel__pip {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.score-panel__pip--active {
+  background: #26de81;
+  box-shadow: 0 0 6px rgba(38, 222, 129, 0.6);
+  border-color: #26de81;
+}
