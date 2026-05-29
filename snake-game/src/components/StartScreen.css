@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(13, 17, 23, 0.93);
+  background: rgba(18, 34, 28, 0.93);
   backdrop-filter: blur(4px);
   z-index: 20;
   border-radius: 6px;
@@ -28,7 +28,7 @@
 .start-screen__logo {
   font-size: 3.5rem;
   line-height: 1;
-  filter: drop-shadow(0 0 16px rgba(38, 222, 129, 0.5));
+  filter: drop-shadow(0 0 16px rgba(4, 81, 43, 0.5));
   animation: logoFloat 2.5s ease-in-out infinite;
 }
 
@@ -41,7 +41,7 @@
   font-family: 'Share Tech Mono', monospace;
   font-size: 2.8rem;
   font-weight: 700;
-  color: #26de81;
+  color: #0a6336;
   margin: 0;
   letter-spacing: 0.12em;
   text-shadow: 0 0 20px rgba(38, 222, 129, 0.5);
@@ -87,7 +87,7 @@
 .start-screen__score-val {
   font-size: 1.8rem;
   font-family: 'Share Tech Mono', monospace;
-  color: #26de81;
+  color: #0a512e;
   font-weight: 700;
 }
 

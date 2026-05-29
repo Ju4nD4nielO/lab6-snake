@@ -7,7 +7,8 @@ Implementación del clásico juego Snake utilizando **React con Vite**, estructu
 ### Opción A — con Docker (recomendado)
 
 ```bash
-# Construir y levantar el contenedor
+cd snake-game
+
 docker compose up --build
 
 # O con el Dockerfile directamente
@@ -20,6 +21,7 @@ Abre tu navegador en `http://localhost:8080`
 ### Opción B — desarrollo local con Node
 
 ```bash
+cd snake-game
 npm install
 npm run dev
 ```
